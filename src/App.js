@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Navbar from "./Navbar/Navbar";
+import Slider from "./Carousel/Carousel";
+import { useState } from "react";
+import Modals from "./Modal";
+import Description from "./Description/Description";
+import HotDeals from "./HotDeals/HotDeals";
 
 function App() {
+  const [isModalActive, setModalActive] = useState(false);
+  const toggleModal = () => {
+    setModalActive(!isModalActive);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar toggle={toggleModal} />
+      <Slider />
+      <Modals isActive={isModalActive} toggle={toggleModal} />
+      <Description />
+      <HotDeals />
+    </>
   );
 }
 
