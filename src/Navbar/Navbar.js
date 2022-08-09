@@ -14,9 +14,7 @@ function Navbar({ toggle }) {
   return (
     <>
       <nav className="flex flex-col items-center sm:flex-row sm:justify-between relative w-full h-[100px] sm:h-[60px] bg-white text-sm sm:text-md md:text-lg lg:text-xl">
-        <div className="">
-          
-        </div>
+        <div className=""></div>
         <div className="w-11/12 flex justify-between items-center sm:w-1/5 h-1/2 sm:h-full">
           <img
             src={logo}
@@ -50,7 +48,7 @@ function Navbar({ toggle }) {
           </button>
         </div>
       </nav>
-      <Links isActive={isToggleActive} setActive={toggleBurger} />
+      <Links />
     </>
   );
 }

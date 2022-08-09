@@ -1,44 +1,115 @@
-import React from "react";
-import { IoIosArrowDropdown } from "react-icons/io";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { links } from "./LinkItems.js";
 
-function Links({ isActive, setActive }) {
-  const links = [
-    "Business Card",
-    "Stationery",
-    "Marketing Tools",
-    "Business Essentials",
-    "Events",
-    "Signage",
-    "Gifts & Promotion",
-    "Flex",
-    "Apparels",
-    "Digital Print",
-  ];
-  const link =
-    "absolute sm:block top-[100px] z-10 bg-black sm:bg-white h-full w-full sm:h-[40px] sm:static border-dotted border border-slate-400 text:xs sm:text-xs md:text-sm lg-text-md ";
+const Links = () => {
+  const [heading, setHeading] = useState("");
+  const [subHeading, setSubHeading] = useState("");
   return (
-    <div
-      className={
-        isActive ? link : `${link} hidden sm:block sm:w-full sm:h-[40px]`
-      }
-    >
-      <ol className="flex items-center justify-around sm:justify-around flex-col sm:flex-row w-full h-full">
-        {links.map((link) => {
-          return (
-            <>
-              <li className="flex items-center content-between cursor-pointer text-white sm:text-blue-800">
-                {link}
-                <i className="ml-[5px]">
-                  <IoIosArrowDropdown />
-                </i>
-              </li>
-            </>
-          );
-        })}
-      </ol>
+    <div className="w-full h-[20px] flex items-center justify-around">
+      {links.map((link) => (
+        <div>
+          <div className="px-3 text-left md:cursor-pointer group z-100">
+            <h1
+              className="py-7 flex justify-between items-center md:pr-0 pr-5 group"
+              onClick={() => {
+                heading !== link.name ? setHeading(link.name) : setHeading("");
+                setSubHeading("");
+              }}
+            >
+              {link.name}
+              <span className="text-xl md:hidden inline z-100">
+                <ion-icon
+                  name={`${
+                    heading === link.name ? "chevron-up" : "chevron-down"
+                  }`}
+                ></ion-icon>
+              </span>
+              <span className="text-sm md:mt-1 md:ml-2  md:block hidden group-hover:rotate-180 group-hover:-mt-2">
+                <ion-icon name="chevron-down"></ion-icon>
+              </span>
+            </h1>
+            {link.subMenu && (
+              <div>
+                <div className="absolute top-20 hidden group-hover:md:block hover:md:block">
+                  <div className="py-3">
+                    <div
+                      className="w-4 h-4 left-3 absolute 
+                    mt-1 bg-white rotate-45"
+                    ></div>
+                  </div>
+                  <div className="bg-white p-5 flex flex-col items-center">
+                    {link.sublinks.map((mysublinks) => (
+                      <div>
+                        <h1 className="text-lg font-[16px]">
+                          {mysublinks.Head}
+                        </h1>
+                        {mysublinks.sublink.map((slink) => (
+                          <li className="text-sm text-gray-600 my-2.5">
+                            <Link
+                              to={slink.link}
+                              className="hover:text-primary"
+                            >
+                              {slink.name}
+                            </Link>
+                          </li>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+          {/* Mobile menus */}
+          <div
+            className={`
+            ${heading === link.name ? "md:hidden" : "hidden"}
+          `}
+          >
+            {/* sublinks */}
+            {link.sublinks.map((slinks) => (
+              <div>
+                <div>
+                  <h1
+                    onClick={() =>
+                      subHeading !== slinks.Head
+                        ? setSubHeading(slinks.Head)
+                        : setSubHeading("")
+                    }
+                    className="py-4 pl-7 font-semibold md:pr-0 pr-5 flex justify-between items-center md:pr-0 pr-5"
+                  >
+                    {slinks.Head}
+
+                    <span className="text-xl md:mt-1 md:ml-2 inline">
+                      <ion-icon
+                        name={`${
+                          subHeading === slinks.Head
+                            ? "chevron-up"
+                            : "chevron-down"
+                        }`}
+                      ></ion-icon>
+                    </span>
+                  </h1>
+                  <div
+                    className={`${
+                      subHeading === slinks.Head ? "md:hidden" : "hidden"
+                    }`}
+                  >
+                    {/* {slinks.sublink.map((slink) => (
+                      <li className="py-3 pl-14">
+                        <Link to={slink.link}>{slink.name}</Link>
+                      </li>
+                    ))} */}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
     </div>
   );
-}
+};
 
 export default Links;
