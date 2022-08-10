@@ -48,7 +48,7 @@ function Navbar({ toggle }) {
           </button>
         </div>
       </nav>
-      <Links />
+      <Links isToggleActive={isToggleActive} />
     </>
   );
 }

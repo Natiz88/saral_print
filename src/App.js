@@ -15,10 +15,10 @@ function App() {
   return (
     <>
       <Navbar toggle={toggleModal} />
-      {/* <Slider />
+      {/* <Slider /> */}
       <Modals isActive={isModalActive} toggle={toggleModal} />
       <Description />
-      <HotDeals /> */}
+      <HotDeals />
     </>
   );
 }
